@@ -38,7 +38,7 @@ dev = [
 ]
 
 [project.scripts]
-wb-anki = "src.wb_anki.cli.cli:main"
+wb-anki = "src.wb_anki.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/wb-anki/wb-anki"
