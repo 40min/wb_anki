@@ -3,7 +3,7 @@ name = "wb-anki"
 version = "1.0.0"
 description = "A command-line Python script that automates the creation of Anki flashcards from word pairs using AnkiConnect API"
 readme = "README.md"
-requires-python = ">=3.13.5"
+requires-python = ">=3.13.0"
 authors = [
     {name = "WB_Anki", email = "contact@example.com"}
 ]
