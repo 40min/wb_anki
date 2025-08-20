@@ -38,7 +38,7 @@ dev = [
 ]
 
 [project.scripts]
-wb-anki = "src.wb_anki.cli:main"
+wb-anki = "wb_anki.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/wb-anki/wb-anki"
@@ -51,7 +51,7 @@ requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["."]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

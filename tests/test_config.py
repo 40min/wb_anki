@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.wb_anki.config import Config
+from wb_anki.config import Config
 
 
 class TestConfig:
@@ -21,7 +21,7 @@ class TestConfig:
             del sys.modules["src.wb_anki.config"]
 
         # Access Config directly from the module
-        from src.wb_anki.config import Config
+        from wb_anki.config import Config
 
         assert Config.ANKI_URL == "http://localhost:8765"
         assert Config.DEFAULT_DECK_NAME == "WB_Anki"
@@ -41,7 +41,7 @@ class TestConfig:
             del sys.modules["src.wb_anki.config"]
 
         # Access Config directly from the module
-        from src.wb_anki.config import Config
+        from wb_anki.config import Config
 
         assert Config.ANKI_URL == "http://localhost:9999"
         assert Config.DEFAULT_DECK_NAME == "TestDeck"

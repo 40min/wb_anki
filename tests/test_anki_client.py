@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 import httpx
 import pytest
 
-from src.wb_anki.anki_client import AnkiConnectClient
+from wb_anki.anki_client import AnkiConnectClient
 
 
 class TestAnkiConnectClient:

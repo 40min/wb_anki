@@ -2,7 +2,7 @@
 
 A command-line Python script that automates the creation of Anki flashcards from word pairs using the AnkiConnect API.
 
-![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![Python](https://img.shields.io/badge/python-3.13+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
 ## Features
@@ -23,17 +23,50 @@ A command-line Python script that automates the creation of Anki flashcards from
 
 ## Installation
 
+### Prerequisites
+
+This project uses [uv](https://docs.astral.sh/uv/) as the package manager. Install uv first:
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
 ### From Source
 
 ```bash
+# Clone the repository
 git clone https://github.com/wb-anki/wb-anki.git
 cd wb-anki
-pip install -e .
+
+# Install the package in editable mode
+uv pip install -e .
+```
+
+### Using Makefile (Recommended)
+
+The project includes a Makefile with useful commands for development and maintenance:
+
+```bash
+# Install all dependencies (production + development)
+make install-all
+
+# Run tests
+make test
+
+# Run code quality checks
+make check
+
+# Format code
+make format
+
+# Display all available commands
+make help
 ```
 
 ### Dependencies
 
-The following Python packages are required:
+The following Python packages are required (managed by uv):
 - `click>=8.0.0` - Command-line interface
 - `httpx>=0.24.0` - HTTP client for AnkiConnect API
 - `rich>=13.0.0` - Rich terminal output
@@ -120,16 +153,11 @@ wb-anki --deck-name "Swedish"
 > (Press Ctrl+D on Unix/Linux/Mac or Ctrl+Z on Windows to finish)
 ```
 
-### Using the Python Entry Point
-
-If you prefer to use Python directly:
+### Using uv to run the CLI
 
 ```bash
-# Using main.py
-python main.py --deck-name "Swedish" --file vocabulary.txt
-
-# Using module
-python -m src.wb_anki.cli.cli --deck-name "Swedish" --file vocabulary.txt
+# Run the CLI directly with uv
+uv run wb-anki --deck-name "Swedish" --file vocabulary.txt
 ```
 
 ## Output Example
@@ -138,8 +166,6 @@ python -m src.wb_anki.cli.cli --deck-name "Swedish" --file vocabulary.txt
 ✅ Created deck: Swedish Vocabulary
 Processing 3 word pairs...
 Processing word pairs... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:01
-
-Processing complete!
 
                     Processing Results                    
 ┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
@@ -171,59 +197,71 @@ This ensures you can practice both recognition and recall of vocabulary.
 git clone https://github.com/wb-anki/wb-anki.git
 cd wb-anki
 
-# Install development dependencies
-pip install -e ".[dev]"
+# Install development dependencies using uv
+uv pip install -e .
 ```
 
 ### Running Tests
 
 ```bash
 # Run all tests
-pytest
+uv run pytest
 
 # Run with coverage
-pytest --cov=src --cov-report=term-missing
+uv run pytest --cov=src --cov-report=term-missing
 
 # Run specific test file
-pytest tests/test_parser.py
+uv run pytest tests/test_parser.py
 ```
 
-### Code Formatting
+### Using Makefile for Development
+
+```bash
+# Install all dependencies (production + development)
+make install-all
+
+# Run tests
+make test
+
+# Run code quality checks
+make check
+
+# Format code
+make format
+
+# Display all available commands
+make help
+```
+
+### Code Quality
 
 ```bash
 # Format code
-black src/ tests/
+make format
 
-# Check code style
-flake8 src/ tests/
+# Run all code quality checks
+make check
 
-# Type checking
-mypy src/
+# Run individual checks
+make lint
+make type-check
 ```
 
 ## Project Structure
 
 ```
 wb-anki/
-├── main.py                 # Main entry point
-├── src/
-│   └── wb_anki/
-│       ├── __init__.py     # Package initialization
-│       ├── cli/            # Command-line interface
-│       │   ├── __init__.py
-│       │   └── cli.py      # CLI implementation
-│       ├── client/         # AnkiConnect client
-│       │   ├── __init__.py
-│       │   └── anki_client.py
-│       ├── config/         # Configuration
-│       │   ├── __init__.py
-│       │   └── config.py
-│       └── parser/         # Word pair parsing
-│           ├── __init__.py
-│           └── parser.py
+├── wb_anki/                # Main package directory
+│   ├── __init__.py         # Package initialization
+│   ├── cli.py              # Command-line interface
+│   ├── anki_client.py      # AnkiConnect client
+│   ├── config.py           # Configuration
+│   └── parser.py           # Word pair parsing
+├── main.py                 # Main entry point (for direct execution)
+├── Makefile                # Development and maintenance commands
 ├── tests/                  # Unit tests
-├── pyproject.toml          # Project configuration
-└── README.md              # This file
+├── pyproject.toml          # Project configuration (uv-based)
+└── README.md               # This file
 ```
 
 ## Contributing
@@ -232,8 +270,8 @@ wb-anki/
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
 4. Add tests for new functionality
-5. Ensure all tests pass (`pytest`)
-6. Format your code (`black .`)
+5. Ensure all tests pass (`make test`)
+6. Format your code (`make format`)
 7. Commit your changes (`git commit -m 'Add amazing feature'`)
 8. Push to the branch (`git push origin feature/amazing-feature`)
 9. Open a Pull Request
@@ -267,12 +305,12 @@ Enable debug mode by setting the environment variable:
 
 ```bash
 export DEBUG=true
-wb-anki --deck-name "Test" --file test.txt
+uv run wb-anki --deck-name "Test" --file test.txt
 ```
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Acknowledgments
 
@@ -280,3 +318,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Anki](https://apps.ankiweb.net/) for the amazing flashcard system
 - [Rich](https://github.com/Textualize/rich) for beautiful terminal output
 - [Click](https://click.palletsprojects.com/) for the CLI framework
+- [uv](https://docs.astral.sh/uv/) for fast Python package management
