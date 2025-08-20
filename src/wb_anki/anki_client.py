@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional
 
 import httpx
 
-from ..config import Config
+from .config import Config
 
 
 class AnkiConnectClient:

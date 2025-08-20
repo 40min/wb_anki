@@ -6,7 +6,7 @@ Main entry point for the WB_Anki application.
 
 import sys
 
-from src.wb_anki.cli.cli import main
+from src.wb_anki.cli import main
 
 if __name__ == "__main__":
     sys.exit(main())

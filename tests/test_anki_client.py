@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 import httpx
 import pytest
 
-from src.wb_anki.client.anki_client import AnkiConnectClient
+from src.wb_anki.anki_client import AnkiConnectClient
 
 
 class TestAnkiConnectClient:
@@ -13,7 +13,7 @@ class TestAnkiConnectClient:
 
     def test_init_default_url(self):
         """Test client initialization with default URL."""
-        with patch("src.wb_anki.client.anki_client.Config") as mock_config:
+        with patch("src.wb_anki.anki_client.Config") as mock_config:
             mock_config.ANKI_URL = "http://localhost:8765"
             mock_config.TIMEOUT = 30.0
 
@@ -22,7 +22,7 @@ class TestAnkiConnectClient:
 
     def test_init_custom_url(self):
         """Test client initialization with custom URL."""
-        with patch("src.wb_anki.client.anki_client.Config"):
+        with patch("src.wb_anki.anki_client.Config"):
             client = AnkiConnectClient("http://custom:9999")
             assert client.anki_url == "http://custom:9999"
 

@@ -7,8 +7,8 @@ from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
-from ..client import AnkiConnectClient
-from ..parser import parse_word_pairs, read_input
+from .anki_client import AnkiConnectClient
+from .parser import parse_word_pairs, read_input
 
 console = Console()
 

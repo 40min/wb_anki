@@ -1,11 +1,12 @@
 """Tests for the configuration module."""
 
 import os
+import sys
 from unittest.mock import patch
 
 import pytest
 
-from src.wb_anki.config.config import Config
+from src.wb_anki.config import Config
 
 
 class TestConfig:
@@ -14,17 +15,18 @@ class TestConfig:
     @patch.dict(os.environ, {}, clear=True)
     def test_default_values(self):
         """Test that default configuration values are set correctly."""
-        # Clear any cached module and re-import
-        import importlib
 
-        from src.wb_anki.config import config
+        # Remove the module from cache if it exists
+        if "src.wb_anki.config" in sys.modules:
+            del sys.modules["src.wb_anki.config"]
 
-        importlib.reload(config)
+        # Access Config directly from the module
+        from src.wb_anki.config import Config
 
-        assert config.Config.ANKI_URL == "http://localhost:8765"
-        assert config.Config.DEFAULT_DECK_NAME == "WB_Anki"
-        assert config.Config.TIMEOUT == 30.0
-        assert config.Config.DEBUG is False
+        assert Config.ANKI_URL == "http://localhost:8765"
+        assert Config.DEFAULT_DECK_NAME == "WB_Anki"
+        assert Config.TIMEOUT == 30.0
+        assert Config.DEBUG is False
 
     @patch.dict(
         os.environ,
@@ -33,17 +35,18 @@ class TestConfig:
     )
     def test_environment_variables(self):
         """Test that environment variables override defaults."""
-        # Clear any cached module and re-import
-        import importlib
 
-        from src.wb_anki.config import config
+        # Remove the module from cache if it exists
+        if "src.wb_anki.config" in sys.modules:
+            del sys.modules["src.wb_anki.config"]
 
-        importlib.reload(config)
+        # Access Config directly from the module
+        from src.wb_anki.config import Config
 
-        assert config.Config.ANKI_URL == "http://localhost:9999"
-        assert config.Config.DEFAULT_DECK_NAME == "TestDeck"
-        assert config.Config.TIMEOUT == 60.0
-        assert config.Config.DEBUG is True
+        assert Config.ANKI_URL == "http://localhost:9999"
+        assert Config.DEFAULT_DECK_NAME == "TestDeck"
+        assert Config.TIMEOUT == 60.0
+        assert Config.DEBUG is True
 
     def test_validate_success(self):
         """Test successful validation."""

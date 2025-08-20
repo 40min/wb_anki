@@ -4,7 +4,7 @@ from unittest.mock import mock_open, patch
 
 import pytest
 
-from src.wb_anki.parser.parser import parse_word_pairs, read_input
+from src.wb_anki.parser import parse_word_pairs, read_input
 
 
 class TestParseWordPairs:

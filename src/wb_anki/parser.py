@@ -30,8 +30,13 @@ def parse_word_pairs(lines: List[str]) -> List[Tuple[str, str]]:
         if not line:
             continue
 
-        # Split by one or more dashes or tabs
-        parts = re.split(r"[-–—\t]+", line, maxsplit=1)
+        # Split by dashes or tabs
+        # For dashes: require surrounding whitespace
+        # For tabs: no surrounding whitespace required
+        # This regex looks for:
+        # - one or more dashes (-) or other dash-like characters (–, —) with surrounding whitespace
+        # - or a tab character (\t) without surrounding whitespace
+        parts = re.split(r"\s+[-–—]+\s+|\t", line, maxsplit=1)
         if len(parts) != 2:
             console.print(f"[yellow]⚠️ Skipping line {line_num}: invalid format '{line}'[/yellow]")
             continue
