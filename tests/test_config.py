@@ -17,8 +17,8 @@ class TestConfig:
         """Test that default configuration values are set correctly."""
 
         # Remove the module from cache if it exists
-        if "src.wb_anki.config" in sys.modules:
-            del sys.modules["src.wb_anki.config"]
+        if "wb_anki.config" in sys.modules:
+            del sys.modules["wb_anki.config"]
 
         # Access Config directly from the module
         from wb_anki.config import Config
@@ -37,8 +37,8 @@ class TestConfig:
         """Test that environment variables override defaults."""
 
         # Remove the module from cache if it exists
-        if "src.wb_anki.config" in sys.modules:
-            del sys.modules["src.wb_anki.config"]
+        if "wb_anki.config" in sys.modules:
+            del sys.modules["wb_anki.config"]
 
         # Access Config directly from the module
         from wb_anki.config import Config
